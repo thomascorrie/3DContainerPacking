@@ -41,10 +41,10 @@ namespace CromulentBisgetti.ContainerPacking.Algorithms
 			}
 
 			result.PackedItems = itemsPackedInOrder;
-			
+            result.BestFitCase = bestVariant;
 
 
-			if (result.UnpackedItems.Count == 0)
+            if (result.UnpackedItems.Count == 0)
 			{
 				result.IsCompletePack = true;
 			}

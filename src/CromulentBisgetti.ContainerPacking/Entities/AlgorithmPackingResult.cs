@@ -78,6 +78,15 @@ namespace CromulentBisgetti.ContainerPacking.Entities
 		[DataMember]
 		public List<Item> UnpackedItems { get; set; }
 
-		#endregion Public Properties
-	}
+        /// <summary>
+        /// Gets or sets the best fit case
+        /// </summary>
+        /// <value>
+        /// The best fit case
+        /// </value>
+        [DataMember]
+        public int BestFitCase { get; set; }
+
+        #endregion Public Properties
+    }
 }
