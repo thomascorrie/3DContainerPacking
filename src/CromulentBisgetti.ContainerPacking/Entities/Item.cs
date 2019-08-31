@@ -29,7 +29,7 @@ namespace CromulentBisgetti.ContainerPacking.Entities
 		/// <param name="dim2">The length of another of the three item dimensions.</param>
 		/// <param name="dim3">The length of the other of the three item dimensions.</param>
 		/// <param name="itemQuantity">The item quantity.</param>
-		public Item(int id, decimal dim1, decimal dim2, decimal dim3, int quantity)
+		public Item(int id, decimal dim1, decimal dim2, decimal dim3, int quantity, int group = 0)
 		{
 			this.ID = id;
 			this.Dim1 = dim1;
@@ -37,7 +37,8 @@ namespace CromulentBisgetti.ContainerPacking.Entities
 			this.Dim3 = dim3;
 			this.volume = dim1 * dim2 * dim3;
 			this.Quantity = quantity;
-		}
+            this.Group = group;
+        }
 
 		#endregion Constructors
 
@@ -52,13 +53,22 @@ namespace CromulentBisgetti.ContainerPacking.Entities
 		[DataMember]
 		public int ID { get; set; }
 
-		/// <summary>
-		/// Gets or sets a value indicating whether this item has already been packed.
-		/// </summary>
-		/// <value>
-		///   True if the item has already been packed; otherwise, false.
-		/// </value>
-		[DataMember]
+        /// <summary>
+        ///     The packing group for the item.
+        /// </summary>
+        /// <value>
+        /// The item packing group.
+        /// </value>
+        //[DataMember]
+        public int Group { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this item has already been packed.
+        /// </summary>
+        /// <value>
+        ///   True if the item has already been packed; otherwise, false.
+        /// </value>
+        [DataMember]
 		public bool IsPacked { get; set; }
 
 		/// <summary>
