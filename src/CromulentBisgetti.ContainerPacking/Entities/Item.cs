@@ -29,7 +29,7 @@ namespace CromulentBisgetti.ContainerPacking.Entities
 		/// <param name="dim2">The length of another of the three item dimensions.</param>
 		/// <param name="dim3">The length of the other of the three item dimensions.</param>
 		/// <param name="itemQuantity">The item quantity.</param>
-		public Item(int id, decimal dim1, decimal dim2, decimal dim3, int quantity, int group = 0)
+		public Item(int id, decimal dim1, decimal dim2, decimal dim3, int quantity, int group = 0, int priority = 0)
 		{
 			this.ID = id;
 			this.Dim1 = dim1;
@@ -38,6 +38,7 @@ namespace CromulentBisgetti.ContainerPacking.Entities
 			this.volume = dim1 * dim2 * dim3;
 			this.Quantity = quantity;
             this.Group = group;
+            this.Priority = priority;
         }
 
 		#endregion Constructors
@@ -61,6 +62,15 @@ namespace CromulentBisgetti.ContainerPacking.Entities
         /// </value>
         //[DataMember]
         public int Group { get; set; }
+
+        /// <summary>
+        ///     The priority for the item.
+        /// </summary>
+        /// <value>
+        /// The item priority.
+        /// </value>
+        //[DataMember]
+        public int Priority { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this item has already been packed.

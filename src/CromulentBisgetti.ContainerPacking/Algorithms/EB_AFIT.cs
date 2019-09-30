@@ -547,7 +547,7 @@ namespace CromulentBisgetti.ContainerPacking.Algorithms
 			{
 				for (int i = 1; i <= item.Quantity; i++)
 				{
-					Item newItem = new Item(item.ID, item.Dim1, item.Dim2, item.Dim3, item.Quantity, item.Group);
+					Item newItem = new Item(item.ID, item.Dim1, item.Dim2, item.Dim3, item.Quantity, item.Group, item.Priority);
 					itemsToPack.Add(newItem);
 				}
 
