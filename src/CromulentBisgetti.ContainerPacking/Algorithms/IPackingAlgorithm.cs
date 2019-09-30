@@ -14,6 +14,6 @@ namespace CromulentBisgetti.ContainerPacking.Algorithms
 		/// <param name="container">The container.</param>
 		/// <param name="items">The items to pack.</param>
 		/// <returns>The algorithm packing result.</returns>
-		AlgorithmPackingResult Run(Container container, List<Item> items);
+		AlgorithmPackingResult Run(Container container, List<Item> items, List<int> containerOrientations);
 	}
 }

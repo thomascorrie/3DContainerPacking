@@ -21,7 +21,7 @@ namespace CromulentBisgetti.ContainerPacking
 		/// <param name="itemsToPack">The items to pack.</param>
 		/// <param name="algorithmTypeIDs">The list of algorithm type IDs to use for packing.</param>
 		/// <returns>A container packing result with lists of the packed and unpacked items.</returns>
-		public static List<ContainerPackingResult> Pack(List<Container> containers, List<Item> itemsToPack, List<int> algorithmTypeIDs)
+		public static List<ContainerPackingResult> Pack(List<Container> containers, List<Item> itemsToPack, List<int> algorithmTypeIDs, List<int> containerOrientations)
 		{
 			Object sync = new Object { };
 			List<ContainerPackingResult> result = new List<ContainerPackingResult>();
@@ -46,7 +46,7 @@ namespace CromulentBisgetti.ContainerPacking
 
 					Stopwatch stopwatch = new Stopwatch();
 					stopwatch.Start();
-					AlgorithmPackingResult algorithmResult = algorithm.Run(container, items);
+					AlgorithmPackingResult algorithmResult = algorithm.Run(container, items, containerOrientations);
 					stopwatch.Stop();
 
 					algorithmResult.PackTimeInMilliseconds = stopwatch.ElapsedMilliseconds;
