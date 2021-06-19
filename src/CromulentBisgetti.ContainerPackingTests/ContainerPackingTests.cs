@@ -52,7 +52,7 @@ namespace CromulentBisgetti.ContainerPackingTests
 						List<Container> containers = new List<Container>();
 						containers.Add(new Container(0, Convert.ToDecimal(containerDims[0]), Convert.ToDecimal(containerDims[1]), Convert.ToDecimal(containerDims[2])));
 
-						List<ContainerPackingResult> result = PackingService.Pack(containers, itemsToPack, new List<int> { (int)AlgorithmType.EB_AFIT });
+						List<ContainerPackingResult> result = PackingService.Pack(containers, itemsToPack, new List<int> { (int)AlgorithmType.EB_AFIT }, new List<int>(){ 1, 2, 3, 4, 5, 6});
 						
 						// Assert that the number of items we tried to pack equals the number stated in the published reference.
 						Assert.AreEqual(result[0].AlgorithmPackingResults[0].PackedItems.Count + result[0].AlgorithmPackingResults[0].UnpackedItems.Count, Convert.ToDecimal(testResults[1]));

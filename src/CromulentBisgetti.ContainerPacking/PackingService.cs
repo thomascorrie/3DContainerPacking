@@ -4,14 +4,15 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace CromulentBisgetti.ContainerPacking
 {
-    /// <summary>
-    /// The container packing service.
-    /// </summary>
-    public static class PackingService
+	/// <summary>
+	/// The container packing service.
+	/// </summary>
+	public static class PackingService
 	{
 		/// <summary>
 		/// Attempts to pack the specified containers with the specified items using the specified algorithms.
@@ -20,7 +21,7 @@ namespace CromulentBisgetti.ContainerPacking
 		/// <param name="itemsToPack">The items to pack.</param>
 		/// <param name="algorithmTypeIDs">The list of algorithm type IDs to use for packing.</param>
 		/// <returns>A container packing result with lists of the packed and unpacked items.</returns>
-		public static List<ContainerPackingResult> Pack(List<Container> containers, List<Item> itemsToPack, List<int> algorithmTypeIDs)
+		public static List<ContainerPackingResult> Pack(List<Container> containers, List<Item> itemsToPack, List<int> algorithmTypeIDs, List<int> containerOrientations)
 		{
 			Object sync = new Object { };
 			List<ContainerPackingResult> result = new List<ContainerPackingResult>();
@@ -32,7 +33,7 @@ namespace CromulentBisgetti.ContainerPacking
 
 				Parallel.ForEach(algorithmTypeIDs, algorithmTypeID =>
 				{
-					IPackingAlgorithm algorithm = GetPackingAlgorithmFromTypeID(algorithmTypeID);
+					IPackingAlgorithm algorithm = PackingService.GetPackingAlgorithmFromTypeID(algorithmTypeID);
 
 					// Until I rewrite the algorithm with no side effects, we need to clone the item list
 					// so the parallel updates don't interfere with each other.
@@ -40,12 +41,12 @@ namespace CromulentBisgetti.ContainerPacking
 
 					itemsToPack.ForEach(item =>
 					{
-						items.Add(new Item(item.ID, item.Dim1, item.Dim2, item.Dim3, item.Quantity));
+						items.Add(new Item(item.ID, item.Dim1, item.Dim2, item.Dim3, item.Quantity, item.Group, item.Priority));
 					});
 
 					Stopwatch stopwatch = new Stopwatch();
 					stopwatch.Start();
-					AlgorithmPackingResult algorithmResult = algorithm.Run(container, items);
+					AlgorithmPackingResult algorithmResult = algorithm.Run(container, items, containerOrientations);
 					stopwatch.Stop();
 
 					algorithmResult.PackTimeInMilliseconds = stopwatch.ElapsedMilliseconds;

@@ -20,10 +20,10 @@ namespace CromulentBisgetti.ContainerPacking.Algorithms
 		/// <param name="container">The container to pack items into.</param>
 		/// <param name="items">The items to pack.</param>
 		/// <returns>The bin packing result.</returns>
-		public AlgorithmPackingResult Run(Container container, List<Item> items)
+		public AlgorithmPackingResult Run(Container container, List<Item> items, List<int> containerOrientations)
 		{
 			Initialize(container, items);
-			ExecuteIterations(container);
+			ExecuteIterations(container, containerOrientations);
 			Report(container);
 
 			AlgorithmPackingResult result = new AlgorithmPackingResult();
@@ -282,15 +282,20 @@ namespace CromulentBisgetti.ContainerPacking.Algorithms
 		/// <summary>
 		/// Executes the packing algorithm variants.
 		/// </summary>
-		private void ExecuteIterations(Container container)
+		private void ExecuteIterations(Container container, List<int> containerOrientations)
 		{
 			int itelayer;
 			int layersIndex;
 			decimal bestVolume = 0.0M;
 
-			for (int containerOrientationVariant = 1; (containerOrientationVariant <= 6) && !quit; containerOrientationVariant++)
+            for (int containerOrientationVariant = 1; (containerOrientationVariant <= 6) && !quit; containerOrientationVariant++)
 			{
-				switch (containerOrientationVariant)
+                if (!containerOrientations.Contains(containerOrientationVariant))
+                {
+                    continue; // If the current orientation is not included in the selected list, skip to next
+                }
+
+                switch (containerOrientationVariant)
 				{
 					case 1:
 						px = container.Length; py = container.Height; pz = container.Width;
@@ -542,7 +547,7 @@ namespace CromulentBisgetti.ContainerPacking.Algorithms
 			{
 				for (int i = 1; i <= item.Quantity; i++)
 				{
-					Item newItem = new Item(item.ID, item.Dim1, item.Dim2, item.Dim3, item.Quantity);
+					Item newItem = new Item(item.ID, item.Dim1, item.Dim2, item.Dim3, item.Quantity, item.Group, item.Priority);
 					itemsToPack.Add(newItem);
 				}
 
